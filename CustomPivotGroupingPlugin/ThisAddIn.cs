@@ -9,7 +9,7 @@ using Microsoft.Office.Tools.Excel;
 
 namespace CustomPivotGroupingPlugin
 {
-    public partial class ThisAddIn
+    public partial class PivotGroupingAddIn
     {
         private void ThisAddIn_Startup(object sender, System.EventArgs e)
         {
