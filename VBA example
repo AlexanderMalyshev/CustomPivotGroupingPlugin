@@ -1,0 +1,24 @@
+Sub PivotTableGroup()
+    Dim PvtTbl As PivotTable
+    Dim pvtItm As PivotItem
+    
+    Set PvtTbl = Worksheets("Sheet1").PivotTables("PivotTable2")
+
+    'select all items which are visible:
+    Application.PivotTableSelection = True
+    PvtTbl.PivotSelect "Product[Apples,Bananas]", xlLabelOnly
+    
+    'group the selected items:
+    Selection.Group
+
+    'select all items which are visible:
+    Application.PivotTableSelection = True
+    PvtTbl.PivotSelect "Product[Blueberry,Strawberry]", xlLabelOnly
+    
+    'group the selected items:
+    Selection.Group
+    
+    PvtTbl.PivotFields("Product2").PivotItems("Group1").Name = "Fruits"
+    PvtTbl.PivotFields("Product2").PivotItems("Group2").Name = "Berries"
+    
+End Sub
