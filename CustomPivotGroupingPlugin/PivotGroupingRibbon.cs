@@ -10,16 +10,17 @@ namespace CustomPivotGroupingPlugin
 {
     public partial class PivotGroupingRibbon
     {
-        private void Ribbon1_Load(object sender, RibbonUIEventArgs e)
+        private void PivotGroupingRibbon_Load(object sender, RibbonUIEventArgs e)
         {
 
         }
 
         private void btnPivotGrouping_Click(object sender, RibbonControlEventArgs e)
         {
-            Excel.Worksheet activeWorksheet = Globals.PivotGroupingAddIn.Application.ActiveSheet;
-            PivotGrouingWindow pgw = new PivotGrouingWindow();
+            PivotGrouingWindow pgw = new PivotGrouingWindow(groups);
             pgw.Show();
         }
+
+        private Dictionary<String, List<String>> groups = new Dictionary<string, List<string>>();
     }
 }

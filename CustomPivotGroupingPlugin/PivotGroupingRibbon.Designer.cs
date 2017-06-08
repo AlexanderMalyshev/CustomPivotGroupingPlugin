@@ -67,7 +67,7 @@
             this.Name = "PivotGroupingRibbon";
             this.RibbonType = "Microsoft.Excel.Workbook";
             this.Tabs.Add(this.PivotTab);
-            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.Ribbon1_Load);
+            this.Load += new Microsoft.Office.Tools.Ribbon.RibbonUIEventHandler(this.PivotGroupingRibbon_Load);
             this.PivotTab.ResumeLayout(false);
             this.PivotTab.PerformLayout();
             this.PivotGroup.ResumeLayout(false);

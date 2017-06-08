@@ -11,11 +11,11 @@ namespace CustomPivotGroupingPlugin
 {
     public partial class PivotGroupingAddIn
     {
-        private void ThisAddIn_Startup(object sender, System.EventArgs e)
+        private void PivotGroupingAddIn_Startup(object sender, System.EventArgs e)
         {
         }
 
-        private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
+        private void PivotGroupingAddIn_Shutdown(object sender, System.EventArgs e)
         {
         }
 
@@ -27,8 +27,8 @@ namespace CustomPivotGroupingPlugin
         /// </summary>
         private void InternalStartup()
         {
-            this.Startup += new System.EventHandler(ThisAddIn_Startup);
-            this.Shutdown += new System.EventHandler(ThisAddIn_Shutdown);
+            this.Startup += new System.EventHandler(PivotGroupingAddIn_Startup);
+            this.Shutdown += new System.EventHandler(PivotGroupingAddIn_Shutdown);
         }
         
         #endregion
