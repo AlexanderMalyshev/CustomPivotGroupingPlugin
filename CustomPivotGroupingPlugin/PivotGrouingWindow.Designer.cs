@@ -86,6 +86,7 @@
             this.GroupItemsListView.TabIndex = 9;
             this.GroupItemsListView.UseCompatibleStateImageBehavior = false;
             this.GroupItemsListView.View = System.Windows.Forms.View.Details;
+            this.GroupItemsListView.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.GroupItemsListView_ItemChecked);
             // 
             // GroupNamesColumnHeader
             // 
@@ -109,9 +110,9 @@
             this.GroupNamesDataGridView.ShowRowErrors = false;
             this.GroupNamesDataGridView.Size = new System.Drawing.Size(150, 222);
             this.GroupNamesDataGridView.TabIndex = 8;
-            this.GroupNamesDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupNamesDataGridView_CellEndEdit);
             this.GroupNamesDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GroupNamesDataGridView_CellMouseClick);
             this.GroupNamesDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupNamesDataGridView_CellValueChanged);
+            this.GroupNamesDataGridView.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.GroupNamesDataGridView_RowsRemoved);
             // 
             // GroupNamesColumn
             // 
