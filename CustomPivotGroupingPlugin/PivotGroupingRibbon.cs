@@ -21,6 +21,6 @@ namespace CustomPivotGroupingPlugin
             pgw.Show();
         }
 
-        private Dictionary<String, List<String>> groups = new Dictionary<string, List<string>>();
+        private List<Tuple<String, List<String>>> groups = new List<Tuple<String, List<String>>>();
     }
 }
