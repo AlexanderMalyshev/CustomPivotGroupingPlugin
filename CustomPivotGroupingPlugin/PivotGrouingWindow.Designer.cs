@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnPivotGroupingWindowOk = new System.Windows.Forms.Button();
-            this.btnPivotGroupingWindowCancel = new System.Windows.Forms.Button();
+            this.PivotGroupingWindowOkButton = new System.Windows.Forms.Button();
+            this.PivotGroupingWindowCancelButton = new System.Windows.Forms.Button();
             this.GroupsGroupBox = new System.Windows.Forms.GroupBox();
             this.GroupItemsListView = new System.Windows.Forms.ListView();
             this.GroupNamesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,24 +39,25 @@
             ((System.ComponentModel.ISupportInitialize)(this.GroupNamesDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
-            // btnPivotGroupingWindowOk
+            // PivotGroupingWindowOkButton
             // 
-            this.btnPivotGroupingWindowOk.Location = new System.Drawing.Point(171, 302);
-            this.btnPivotGroupingWindowOk.Name = "btnPivotGroupingWindowOk";
-            this.btnPivotGroupingWindowOk.Size = new System.Drawing.Size(75, 23);
-            this.btnPivotGroupingWindowOk.TabIndex = 1;
-            this.btnPivotGroupingWindowOk.Text = "Ok";
-            this.btnPivotGroupingWindowOk.UseVisualStyleBackColor = true;
+            this.PivotGroupingWindowOkButton.Location = new System.Drawing.Point(171, 302);
+            this.PivotGroupingWindowOkButton.Name = "PivotGroupingWindowOkButton";
+            this.PivotGroupingWindowOkButton.Size = new System.Drawing.Size(75, 23);
+            this.PivotGroupingWindowOkButton.TabIndex = 1;
+            this.PivotGroupingWindowOkButton.Text = "Ok";
+            this.PivotGroupingWindowOkButton.UseVisualStyleBackColor = true;
+            this.PivotGroupingWindowOkButton.Click += new System.EventHandler(this.PivotGroupingWindowOkButton_Click);
             // 
-            // btnPivotGroupingWindowCancel
+            // PivotGroupingWindowCancelButton
             // 
-            this.btnPivotGroupingWindowCancel.Location = new System.Drawing.Point(252, 302);
-            this.btnPivotGroupingWindowCancel.Name = "btnPivotGroupingWindowCancel";
-            this.btnPivotGroupingWindowCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnPivotGroupingWindowCancel.TabIndex = 2;
-            this.btnPivotGroupingWindowCancel.Text = "Cancel";
-            this.btnPivotGroupingWindowCancel.UseVisualStyleBackColor = true;
-            this.btnPivotGroupingWindowCancel.Click += new System.EventHandler(this.btnPivotGroupingWindowCancel_Click);
+            this.PivotGroupingWindowCancelButton.Location = new System.Drawing.Point(252, 302);
+            this.PivotGroupingWindowCancelButton.Name = "PivotGroupingWindowCancelButton";
+            this.PivotGroupingWindowCancelButton.Size = new System.Drawing.Size(75, 23);
+            this.PivotGroupingWindowCancelButton.TabIndex = 2;
+            this.PivotGroupingWindowCancelButton.Text = "Cancel";
+            this.PivotGroupingWindowCancelButton.UseVisualStyleBackColor = true;
+            this.PivotGroupingWindowCancelButton.Click += new System.EventHandler(this.PivotGroupingWindowCancelButton_Click);
             // 
             // GroupsGroupBox
             // 
@@ -126,8 +127,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(335, 331);
             this.Controls.Add(this.GroupsGroupBox);
-            this.Controls.Add(this.btnPivotGroupingWindowCancel);
-            this.Controls.Add(this.btnPivotGroupingWindowOk);
+            this.Controls.Add(this.PivotGroupingWindowCancelButton);
+            this.Controls.Add(this.PivotGroupingWindowOkButton);
             this.HelpButton = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -140,8 +141,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnPivotGroupingWindowOk;
-        private System.Windows.Forms.Button btnPivotGroupingWindowCancel;
+        private System.Windows.Forms.Button PivotGroupingWindowOkButton;
+        private System.Windows.Forms.Button PivotGroupingWindowCancelButton;
         private System.Windows.Forms.GroupBox GroupsGroupBox;
         private System.Windows.Forms.DataGridView GroupNamesDataGridView;
         private System.Windows.Forms.ListView GroupItemsListView;

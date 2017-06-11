@@ -38,17 +38,13 @@ namespace CustomPivotGroupingPlugin
             List<string> items = new List<string>();
 
             Excel.PivotTable pt = Globals.PivotGroupingAddIn.Application.ActiveCell.PivotTable;
-            foreach (Excel.PivotItem rowItem in pt.PivotFields("Product").PivotItems)
+            string selectedFields = pt.RowFields.Item(0).Name;
+            foreach (Excel.PivotItem rowItem in pt.PivotFields(selectedFields).PivotItems)
             {
                 items.Add(rowItem.Name);
             }
 
             return items;
-        }
-
-        private void btnPivotGroupingWindowCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
         }
 
         private void GroupNamesDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -118,6 +114,45 @@ namespace CustomPivotGroupingPlugin
                 groups[OTHER].Item2.Add(e.Item.Text);
                 groups[SelectedNameIndex].Item2.Remove(e.Item.Text);
             }
+        }
+
+        private void PivotGroupingWindowOkButton_Click(object sender, EventArgs e)
+        {
+            //if (groups.Count <= 1) // something was configured
+            //    return;
+
+            Excel.PivotTable pt = Globals.PivotGroupingAddIn.Application.ActiveCell.PivotTable;
+
+            groups.ForEach(groupItem => 
+            {
+                if (groupItem.Item2.Count == 0)
+                    return;
+
+                Excel.PivotFields pfs = pt.RowFields;
+                string selectedFields = pfs.Item(0).Name + "[";
+                groupItem.Item2.ForEach(item => selectedFields += item + ",");
+                selectedFields = selectedFields.Substring(0, selectedFields.Length - 1);
+                selectedFields += "]";
+                pt.PivotSelect(selectedFields, Excel.XlPTSelectionMode.xlLabelOnly);
+
+                var selection = Globals.PivotGroupingAddIn.Application.Selection;
+                selection.Group();
+
+                foreach (Excel.PivotField pf in pt.PivotFields())
+                {
+                    foreach (Excel.PivotItem rowItem in pf.PivotItems())
+                    {
+                        if (rowItem.Name.StartsWith("Group"))
+                            rowItem.Name = groupItem.Item1;
+                    }
+                }
+            });
+
+            this.Close();
+        }
+        private void PivotGroupingWindowCancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
