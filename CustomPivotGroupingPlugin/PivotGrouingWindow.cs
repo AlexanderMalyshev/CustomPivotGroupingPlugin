@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -118,14 +119,14 @@ namespace CustomPivotGroupingPlugin
 
         private void PivotGroupingWindowOkButton_Click(object sender, EventArgs e)
         {
-            //if (groups.Count <= 1) // something was configured
-            //    return;
+            if (groups.Count <= 1) // groups are empty
+                return;
 
             Excel.PivotTable pt = Globals.PivotGroupingAddIn.Application.ActiveCell.PivotTable;
 
             groups.ForEach(groupItem => 
             {
-                if (groupItem.Item2.Count == 0)
+                if (groupItem.Item2.Count <= 1)
                     return;
 
                 Excel.PivotFields pfs = pt.RowFields;
@@ -150,9 +151,66 @@ namespace CustomPivotGroupingPlugin
 
             this.Close();
         }
+
         private void PivotGroupingWindowCancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void ShowRegexEditFieldButton_Click(object sender, EventArgs e)
+        {
+            TextBox tb = new TextBox();
+            GroupItemsListView.SuspendLayout();
+
+            tb.Visible = true;
+            tb.SetBounds(0, 0, GroupItemsListView.Width, 25);
+            tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegularEditBox_OnKeyPress);
+
+
+            GroupItemsListView.Controls.Add(tb);
+            GroupItemsListView.Controls[0].Focus();
+
+            GroupItemsListView.ResumeLayout();
+        }
+
+        private void RegularEditBox_OnKeyPress(object sender, KeyPressEventArgs e)
+        {
+            switch (e.KeyChar)
+            {
+                case (char)Keys.Return:
+                case (char)Keys.Escape:
+                    ((TextBox)sender).Dispose();
+                    break;
+                case (char)Keys.Back:
+                    FilterGroupItems(((TextBox)sender).Text.Substring(0, ((TextBox)sender).Text.Length - 1));
+                    break;
+                default:
+                    FilterGroupItems(((TextBox)sender).Text + e.KeyChar);
+                    break;
+            }
+        }
+
+        private void FilterGroupItems(string text)
+        {
+            IsGroupItemsListViewInEdit = true;
+
+            List<string> items = new List<string>();
+            Regex itemRegex = new Regex(text);
+            GroupItemsListView.Items.Clear();
+
+            if (SelectedNameIndex >= 0 && SelectedNameIndex < groups.Count)
+                groups.Find(group => group.Item1.Equals(GroupNamesDataGridView.Rows[SelectedNameIndex].Cells[0].Value))
+                    .Item2.FindAll(item => itemRegex.IsMatch(item)).ForEach(item =>
+                    {
+                        var listItem = new ListViewItem(item);
+                        listItem.Checked = true;
+                        GroupItemsListView.Items.Add(listItem);
+                    });
+
+            if (SelectedNameIndex != OTHER)
+                groups[OTHER].Item2.FindAll(item => itemRegex.IsMatch(item)).ForEach(item => GroupItemsListView.Items.Add(item));
+
+            IsGroupItemsListViewInEdit = false;
         }
     }
 }

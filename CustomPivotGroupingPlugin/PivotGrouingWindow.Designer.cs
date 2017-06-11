@@ -31,6 +31,7 @@
             this.PivotGroupingWindowOkButton = new System.Windows.Forms.Button();
             this.PivotGroupingWindowCancelButton = new System.Windows.Forms.Button();
             this.GroupsGroupBox = new System.Windows.Forms.GroupBox();
+            this.ShowRegexEditFieldButton = new System.Windows.Forms.Button();
             this.GroupItemsListView = new System.Windows.Forms.ListView();
             this.GroupNamesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GroupNamesDataGridView = new System.Windows.Forms.DataGridView();
@@ -61,6 +62,7 @@
             // 
             // GroupsGroupBox
             // 
+            this.GroupsGroupBox.Controls.Add(this.ShowRegexEditFieldButton);
             this.GroupsGroupBox.Controls.Add(this.GroupItemsListView);
             this.GroupsGroupBox.Controls.Add(this.GroupNamesDataGridView);
             this.GroupsGroupBox.Location = new System.Drawing.Point(-2, 3);
@@ -69,6 +71,16 @@
             this.GroupsGroupBox.TabIndex = 7;
             this.GroupsGroupBox.TabStop = false;
             this.GroupsGroupBox.Text = "Select grouping type:";
+            // 
+            // ShowRegexEditFieldButton
+            // 
+            this.ShowRegexEditFieldButton.Location = new System.Drawing.Point(307, 65);
+            this.ShowRegexEditFieldButton.Name = "ShowRegexEditFieldButton";
+            this.ShowRegexEditFieldButton.Size = new System.Drawing.Size(27, 23);
+            this.ShowRegexEditFieldButton.TabIndex = 10;
+            this.ShowRegexEditFieldButton.Text = "R";
+            this.ShowRegexEditFieldButton.UseVisualStyleBackColor = true;
+            this.ShowRegexEditFieldButton.Click += new System.EventHandler(this.ShowRegexEditFieldButton_Click);
             // 
             // GroupItemsListView
             // 
@@ -148,5 +160,6 @@
         private System.Windows.Forms.ListView GroupItemsListView;
         private System.Windows.Forms.ColumnHeader GroupNamesColumnHeader;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupNamesColumn;
+        private System.Windows.Forms.Button ShowRegexEditFieldButton;
     }
 }
