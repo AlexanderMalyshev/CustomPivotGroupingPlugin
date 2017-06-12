@@ -51,6 +51,7 @@ namespace CustomPivotGroupingPlugin
         private void GroupNamesDataGridView_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             SelectedNameIndex = e.RowIndex;
+            GroupItemsCheckBox.Checked = false;
             RefreshGroupsView(e.RowIndex);
         }
 
@@ -71,7 +72,10 @@ namespace CustomPivotGroupingPlugin
             });
 
             if (selectedItem != OTHER)
+            {
+                GroupItemsCheckBox.Checked = groups[OTHER].Item2.Count == 0 ? true : false;
                 groups[OTHER].Item2.ForEach(groupItem => GroupItemsListView.Items.Add(groupItem));
+            }
 
             IsGroupItemsListViewInEdit = false;
         }
@@ -121,13 +125,13 @@ namespace CustomPivotGroupingPlugin
         {
             if (groups.Count <= 1) // groups are empty
                 return;
-
-            Excel.PivotTable pt = Globals.PivotGroupingAddIn.Application.ActiveCell.PivotTable;
-
+            
             groups.ForEach(groupItem => 
             {
                 if (groupItem.Item2.Count <= 1)
                     return;
+
+                Excel.PivotTable pt = Globals.PivotGroupingAddIn.Application.ActiveCell.PivotTable;
 
                 Excel.PivotFields pfs = pt.RowFields;
                 string selectedFields = pfs.Item(0).Name + "[";
@@ -143,8 +147,8 @@ namespace CustomPivotGroupingPlugin
                 {
                     foreach (Excel.PivotItem rowItem in pf.PivotItems())
                     {
-                        if (rowItem.Name.StartsWith("Group"))
-                            rowItem.Name = groupItem.Item1;
+                        if (rowItem.Value.StartsWith("Group"))
+                            rowItem.Value = groupItem.Item1;
                     }
                 }
             });
@@ -159,16 +163,18 @@ namespace CustomPivotGroupingPlugin
 
         private void ShowRegexEditFieldButton_Click(object sender, EventArgs e)
         {
-            TextBox tb = new TextBox();
             GroupItemsListView.SuspendLayout();
 
+            TextBox tb = new TextBox();
             tb.Visible = true;
-            tb.SetBounds(0, 0, GroupItemsListView.Width, 25);
+            tb.SetBounds(ShowRegexEditFieldButton.Width, ShowRegexEditFieldButton.Height, 
+                GroupItemsListView.Width - ShowRegexEditFieldButton.Width, 25);
             tb.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.RegularEditBox_OnKeyPress);
-
 
             GroupItemsListView.Controls.Add(tb);
             GroupItemsListView.Controls[0].Focus();
+
+            ShowRegexEditFieldButton.Visible = false;
 
             GroupItemsListView.ResumeLayout();
         }
@@ -179,6 +185,7 @@ namespace CustomPivotGroupingPlugin
             {
                 case (char)Keys.Return:
                 case (char)Keys.Escape:
+                    ShowRegexEditFieldButton.Visible = true;
                     ((TextBox)sender).Dispose();
                     break;
                 case (char)Keys.Back:
@@ -208,9 +215,20 @@ namespace CustomPivotGroupingPlugin
                     });
 
             if (SelectedNameIndex != OTHER)
+            {
+                GroupItemsCheckBox.Checked = groups[OTHER].Item2.Count == 0 ? true : false;
                 groups[OTHER].Item2.FindAll(item => itemRegex.IsMatch(item)).ForEach(item => GroupItemsListView.Items.Add(item));
+            }
 
             IsGroupItemsListViewInEdit = false;
+        }
+
+        private void GroupItemsCheckBox_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem li in GroupItemsListView.Items)
+            {
+                li.Checked = GroupItemsCheckBox.Checked;
+            }
         }
     }
 }

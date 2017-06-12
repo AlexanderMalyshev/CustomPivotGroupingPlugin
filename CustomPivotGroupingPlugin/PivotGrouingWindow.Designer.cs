@@ -36,6 +36,7 @@
             this.GroupNamesColumnHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.GroupNamesDataGridView = new System.Windows.Forms.DataGridView();
             this.GroupNamesColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GroupItemsCheckBox = new System.Windows.Forms.CheckBox();
             this.GroupsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GroupNamesDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +64,7 @@
             // GroupsGroupBox
             // 
             this.GroupsGroupBox.Controls.Add(this.ShowRegexEditFieldButton);
+            this.GroupsGroupBox.Controls.Add(this.GroupItemsCheckBox);
             this.GroupsGroupBox.Controls.Add(this.GroupItemsListView);
             this.GroupsGroupBox.Controls.Add(this.GroupNamesDataGridView);
             this.GroupsGroupBox.Location = new System.Drawing.Point(-2, 3);
@@ -74,7 +76,7 @@
             // 
             // ShowRegexEditFieldButton
             // 
-            this.ShowRegexEditFieldButton.Location = new System.Drawing.Point(307, 65);
+            this.ShowRegexEditFieldButton.Location = new System.Drawing.Point(306, 20);
             this.ShowRegexEditFieldButton.Name = "ShowRegexEditFieldButton";
             this.ShowRegexEditFieldButton.Size = new System.Drawing.Size(27, 23);
             this.ShowRegexEditFieldButton.TabIndex = 10;
@@ -92,10 +94,10 @@
             this.GroupItemsListView.FullRowSelect = true;
             this.GroupItemsListView.GridLines = true;
             this.GroupItemsListView.LabelWrap = false;
-            this.GroupItemsListView.Location = new System.Drawing.Point(154, 65);
+            this.GroupItemsListView.Location = new System.Drawing.Point(154, 19);
             this.GroupItemsListView.MultiSelect = false;
             this.GroupItemsListView.Name = "GroupItemsListView";
-            this.GroupItemsListView.Size = new System.Drawing.Size(180, 222);
+            this.GroupItemsListView.Size = new System.Drawing.Size(180, 268);
             this.GroupItemsListView.TabIndex = 9;
             this.GroupItemsListView.UseCompatibleStateImageBehavior = false;
             this.GroupItemsListView.View = System.Windows.Forms.View.Details;
@@ -103,7 +105,7 @@
             // 
             // GroupNamesColumnHeader
             // 
-            this.GroupNamesColumnHeader.Text = "Group Items";
+            this.GroupNamesColumnHeader.Text = "       Group Names";
             this.GroupNamesColumnHeader.Width = 175;
             // 
             // GroupNamesDataGridView
@@ -115,13 +117,13 @@
             this.GroupNamesDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.GroupNamesColumn});
             this.GroupNamesDataGridView.GridColor = System.Drawing.SystemColors.Window;
-            this.GroupNamesDataGridView.Location = new System.Drawing.Point(6, 65);
+            this.GroupNamesDataGridView.Location = new System.Drawing.Point(6, 19);
             this.GroupNamesDataGridView.MultiSelect = false;
             this.GroupNamesDataGridView.Name = "GroupNamesDataGridView";
             this.GroupNamesDataGridView.ShowCellErrors = false;
             this.GroupNamesDataGridView.ShowCellToolTips = false;
             this.GroupNamesDataGridView.ShowRowErrors = false;
-            this.GroupNamesDataGridView.Size = new System.Drawing.Size(150, 222);
+            this.GroupNamesDataGridView.Size = new System.Drawing.Size(150, 268);
             this.GroupNamesDataGridView.TabIndex = 8;
             this.GroupNamesDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.GroupNamesDataGridView_CellMouseClick);
             this.GroupNamesDataGridView.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.GroupNamesDataGridView_CellValueChanged);
@@ -132,6 +134,18 @@
             this.GroupNamesColumn.HeaderText = "Group Names";
             this.GroupNamesColumn.Name = "GroupNamesColumn";
             this.GroupNamesColumn.Width = 105;
+            // 
+            // GroupItemsCheckBox
+            // 
+            this.GroupItemsCheckBox.AutoSize = true;
+            this.GroupItemsCheckBox.BackColor = System.Drawing.SystemColors.Window;
+            this.GroupItemsCheckBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.GroupItemsCheckBox.Location = new System.Drawing.Point(159, 25);
+            this.GroupItemsCheckBox.Name = "GroupItemsCheckBox";
+            this.GroupItemsCheckBox.Size = new System.Drawing.Size(15, 14);
+            this.GroupItemsCheckBox.TabIndex = 11;
+            this.GroupItemsCheckBox.UseVisualStyleBackColor = false;
+            this.GroupItemsCheckBox.Click += new System.EventHandler(this.GroupItemsCheckBox_Click);
             // 
             // PivotGrouingWindow
             // 
@@ -147,6 +161,7 @@
             this.Name = "PivotGrouingWindow";
             this.Text = "PivotGrouingWindow";
             this.GroupsGroupBox.ResumeLayout(false);
+            this.GroupsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GroupNamesDataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -161,5 +176,6 @@
         private System.Windows.Forms.ColumnHeader GroupNamesColumnHeader;
         private System.Windows.Forms.DataGridViewTextBoxColumn GroupNamesColumn;
         private System.Windows.Forms.Button ShowRegexEditFieldButton;
+        private System.Windows.Forms.CheckBox GroupItemsCheckBox;
     }
 }
