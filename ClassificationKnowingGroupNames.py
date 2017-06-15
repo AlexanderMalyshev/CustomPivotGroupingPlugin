@@ -5,15 +5,22 @@ groupNames = ['Fruit', 'Berry', 'Vegetable']
 groupItemList = ['Apple', 'Carrot', 'Strawberry', 'Tomato', 'Lemon', 'Orange', 'Banana', 'Blueberry', 'Cucumber']
 res = []
 
-for groupItem, groupName in product(groupItemList, groupNames):
-    groupNameSynsets = wordnet.synsets(groupName)
-    groupItemSynsets = wordnet.synsets(groupItem)
-    psSims = []
-    for nameSyns, itemSyns in product(groupNameSynsets, groupItemSynsets):
-        ps = wordnet.path_similarity(nameSyns, itemSyns) or 0
-        psSims.append((ps, groupItem, groupName))
+for groupItem in groupItemList:
+    for groupName in groupNames:
+        groupNameSynsets = wordnet.synsets(groupName)
+        groupItemSynsets = wordnet.synsets(groupItem)
+        psSims = []
+        wupSims = []
+        for nameSyns, itemSyns in product(groupNameSynsets, groupItemSynsets):
+            ps = wordnet.path_similarity(nameSyns, itemSyns) or 0
+            psSims.append((ps, groupItem, groupName))
+            wup = wordnet.wup_similarity(nameSyns, itemSyns) or 0
+            wupSims.append((wup, groupItem, groupName))
     
-    print(max(psSims))
+        print('     path:', max(psSims))
+        print('     wup:', max(wupSims))
+    print('path:', max(psSims))
+    print('wup:', max(wupSims))
 
 #---------------------------------------------------------------------------------------------
      path: (0.3333333333333333, 'Apple', 'Fruit')
