@@ -2,39 +2,34 @@
 from nltk.corpus import wordnet
 from itertools import product
 
-groupNames = ['Fruit', 'Berry', 'Vegetable', 'Plant', 'Mushroom']
-groupItemList = ['Apple', 'Carrot', 'Strawberry', 'Tomato', 'Lemon', 'Orange', 'Banana', 'Blueberry', 'Cucumber']
-res = []
-
-for groupItem in groupItemList:
-    maxPsSims = []
-    maxWupSims = []
-    maxMixSims = []
-    for groupName in groupNames:
-        groupNameSynsets = wordnet.synsets(groupName)
-        groupItemSynsets = wordnet.synsets(groupItem)
-        psSims = []
-        wupSims = []
-        for nameSyns, itemSyns in product(groupNameSynsets, groupItemSynsets):
-            ps = wordnet.path_similarity(nameSyns, itemSyns) or 0
-            psSims.append((ps, groupItem, groupName))
-            wup = wordnet.wup_similarity(nameSyns, itemSyns) or 0
-            wupSims.append((wup, groupItem, groupName))
-        maxPsSims.append(max(psSims))
-        maxWupSims.append(max(wupSims))
-        maxMixSims.append((max(psSims)[0] * max(wupSims)[0], groupItem, groupName))
-    print('     path:', sorted(maxPsSims, key=lambda item: item[0], reverse=True))
-    print('     wup:', sorted(maxWupSims, key=lambda item: item[0], reverse=True))
-    print('     mix:', sorted(maxMixSims, key=lambda item: item[0], reverse=True))
-    print('path:', max(maxPsSims))
-    print('wup:', max(maxWupSims))
-    maxMix = max(maxMixSims)[0]
-    print('mix:', max(maxMixSims))
-    res.append((maxMix, groupItem, [maxMixSim[2] for maxMixSim in maxMixSims if maxMixSim[0] == maxMix]))
-
-print('result:')
-for item in res:
-    print(item[1], " is a ", item[2])
+def spreadItemsIntoGroups(groupNames, groupItemList):
+    res = []
+    for groupItem in groupItemList:
+        maxPsSims = []
+        maxWupSims = []
+        maxMixSims = []
+        for groupName in groupNames:
+            groupNameSynsets = wordnet.synsets(groupName)
+            groupItemSynsets = wordnet.synsets(groupItem)
+            psSims = []
+            wupSims = []
+            for nameSyns, itemSyns in product(groupNameSynsets, groupItemSynsets):
+                ps = wordnet.path_similarity(nameSyns, itemSyns) or 0
+                psSims.append((ps, groupItem, groupName))
+                wup = wordnet.wup_similarity(nameSyns, itemSyns) or 0
+                wupSims.append((wup, groupItem, groupName))
+            maxPsSims.append(max(psSims))
+            maxWupSims.append(max(wupSims))
+            maxMixSims.append((max(psSims)[0] * max(wupSims)[0], groupItem, groupName))
+        print('     path:', sorted(maxPsSims, key=lambda item: item[0], reverse=True))
+        print('     wup:', sorted(maxWupSims, key=lambda item: item[0], reverse=True))
+        print('     mix:', sorted(maxMixSims, key=lambda item: item[0], reverse=True))
+        print('path:', max(maxPsSims))
+        print('wup:', max(maxWupSims))
+        maxMix = max(maxMixSims)[0]
+        print('mix:', max(maxMixSims))
+        res.append((maxMix, groupItem, [maxMixSim[2] for maxMixSim in maxMixSims if maxMixSim[0] == maxMix]))
+    return res
 
 
 
