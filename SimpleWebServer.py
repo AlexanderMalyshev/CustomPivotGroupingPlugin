@@ -4,14 +4,15 @@ from ClassificationKnowingGroupNames import *
 import json
 
 urls = (
-    '/group(.*)', 'GroupServer'
+    '/group', 'GroupServer'
 )
 app = web.application(urls, globals())
 
 class GroupServer:        
-    def GET(self, name):
-        groupNames = ['Fruit', 'Berry', 'Vegetable', 'Plant', 'Mushroom']
-        groupItemList = ['Apple', 'Carrot', 'Strawberry', 'Tomato', 'Boletus_edulis', 'Lemon', 'Orange', 'Banana', 'Blueberry', 'Cucumber', 'Calvatia_gigantea']
+    def POST(self):
+        data = json.loads(web.data())
+        groupNames = data['groups'] # ['Fruit', 'Berry', 'Vegetable', 'Plant', 'Mushroom']
+        groupItemList = data['items'] #['Apple', 'Carrot', 'Strawberry', 'Tomato', 'Boletus_edulis', 'Lemon', 'Orange', 'Banana', 'Blueberry', 'Cucumber', 'Calvatia_gigantea']
 
         print('result:')
         res = spreadItemsIntoGroups(groupNames, groupItemList)
@@ -22,3 +23,12 @@ class GroupServer:
 
 if __name__ == "__main__":
     app.run()
+    
+    
+//------------------------------
+Request
+
+{
+  "groups": ["Fruit", "Berry", "Vegetable", "Plant", "Mushroom"],
+  "items": ["Apple", "Carrot", "Strawberry", "Tomato", "Boletus_edulis", "Lemon", "Orange", "Banana", "Blueberry", "Cucumber", "Calvatia_gigantea"]
+}
